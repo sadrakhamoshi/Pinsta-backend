@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'djoser',
     'corsheaders',
+    'account',
 
 ]
 
@@ -120,7 +121,17 @@ REST_FRAMEWORK = {
     ),
 }
 
+AUTH_USER_MODEL = 'account.User'
 
+DJOSER = {
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
