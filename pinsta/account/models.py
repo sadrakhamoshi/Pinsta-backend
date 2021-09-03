@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 def image_path_generator(instance, filename):
     type = filename.split('.')[-1]
     new_filename = '{}.{}'.format(uuid4().hex, type)
-    return os.path.join('pictures/', new_filename)
+    return os.path.join('user/pictures/', new_filename)
 
 
 class User(AbstractUser):
