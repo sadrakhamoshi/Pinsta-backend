@@ -20,3 +20,11 @@ class PageAD(models.Model):
 
     class Meta:
         db_table = 'pages'
+
+
+class FavoritePage(models.Model):
+    user = models.ForeignKey('account.User', on_delete=models.CASCADE)
+    page = models.ForeignKey('PageAD', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'favorite_pages'
