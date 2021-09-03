@@ -5,10 +5,10 @@ class PageAD(models.Model):
     owner = models.ForeignKey('account.User', on_delete=models.CASCADE)
 
     # TODO
-    username_insta = models.CharField(max_length=250, null=False, blank=True)
+    username_insta = models.CharField(max_length=250, blank=True)
     description = models.CharField(max_length=250, blank=True, null=True)
     # TODO validator
-    deadline = models.DateTimeField(blank=True)
+    deadline = models.DateTimeField(blank=True, null=True)
 
     # TODO validator
     rating = models.IntegerField(null=True, blank=True)
