@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'account',
+    'pageAD',
 
 ]
 
