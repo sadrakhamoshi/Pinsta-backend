@@ -16,3 +16,7 @@ page_ad_detail = PageADViewSet.as_view({
 page_ad_mine = PageADViewSet.as_view({
     'get': 'get_my_page',
 })
+
+page_ad_search = PageADViewSet.as_view({
+    'get': 'search',
+})
