@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^api/redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/', include('djoser.urls')),
+    path('api/page_ad/', include('pageAD.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),
 ]
 
