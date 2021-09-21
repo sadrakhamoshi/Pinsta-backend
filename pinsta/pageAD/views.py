@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from .models import PageAD, FavoritePage
+from .models import *
 from .serizlizers import *
 from django.db.models import Q
 from django.contrib.auth.models import AnonymousUser
@@ -37,3 +37,18 @@ class PageADViewSet(ModelViewSet):
                 condition.add(Q(**{k: query_params.get(k)}), Q.AND)
         result = result_data.filter(condition)
         return Response({'pages': self.serializer_class(result, many=True).data}, status=status.HTTP_200_OK)
+
+
+class FavoritePagesViewSet(ModelViewSet):
+    queryset = FavoritePage.objects.all()
+
+    pass
+
+
+class PageAdRequestViewSet(ModelViewSet):
+    queryset = PageAdRequest.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return PageADCreateSerializer
+        return PageADListSerializer
