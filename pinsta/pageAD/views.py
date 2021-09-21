@@ -4,6 +4,7 @@ from rest_framework import status
 from .models import PageAD, FavoritePage
 from .serizlizers import *
 from django.db.models import Q
+from django.contrib.auth.models import AnonymousUser
 
 
 class PageADViewSet(ModelViewSet):
@@ -11,6 +12,8 @@ class PageADViewSet(ModelViewSet):
     queryset = PageAD.objects.all()
 
     def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return super(PageADViewSet, self).get_queryset()
         return self.queryset.exclude(owner=self.request.user)
 
     def get_serializer_class(self):
