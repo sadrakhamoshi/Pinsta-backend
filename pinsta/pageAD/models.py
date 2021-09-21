@@ -28,3 +28,22 @@ class FavoritePage(models.Model):
 
     class Meta:
         db_table = 'favorite_pages'
+
+
+class PageAdRequest(models.Model):
+    WEEK = 'w'
+    MONTH = 'm'
+    YEAR = 'y'
+
+    memberships = [
+        (WEEK, 'WEEK'),
+        (MONTH, 'MONTH'),
+        (YEAR, 'YEAR'),
+    ]
+
+    user = models.ForeignKey('account.User', on_delete=models.CASCADE, blank=True)
+    page_ad = models.ForeignKey('pageAD', on_delete=models.CASCADE)
+    membership = models.CharField(max_length=10, choices=memberships)
+
+    class Meta:
+        db_table = 'requests'
