@@ -24,7 +24,7 @@ class PageAD(models.Model):
 
 class FavoritePage(models.Model):
     user = models.ForeignKey('account.User', on_delete=models.CASCADE)
-    page = models.ForeignKey('PageAD', on_delete=models.CASCADE)
+    page = models.ForeignKey('PageAD', on_delete=models.PROTECT)
 
     class Meta:
         db_table = 'favorite_pages'
