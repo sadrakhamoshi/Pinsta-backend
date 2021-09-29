@@ -19,3 +19,15 @@ class PageAdPermissions(BasePermission):
         if request.method == 'PUT' or request.method == 'DELETE':
             return request.user == obj.owner
         return True
+
+
+class FavoritePagePermission(BasePermission):
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            try:
+                obj = PageAD.objects.all().get(id=request.data.get('page'))
+                return request.user != obj.owner
+            except:
+                self.message = 'You do not have permission to perform this action or your object does not Exist'
+                return False
+        return True
