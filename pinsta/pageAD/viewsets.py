@@ -21,6 +21,10 @@ page_ad_search = PageADViewSet.as_view({
     'get': 'search',
 })
 
+page_ad_up_to_now = PageADViewSet.as_view({
+    'get': 'get_page_up_to_now',
+})
+
 request_page_ad = PageAdRequestViewSet.as_view({
     'post': 'create',
     'get': 'list'

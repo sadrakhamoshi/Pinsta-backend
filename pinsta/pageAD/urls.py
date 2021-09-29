@@ -6,6 +6,7 @@ urlpatterns = [
     path('', page_ad_create),
     path('my_pages', page_ad_mine),
     path('<int:pk>', page_ad_detail),
+    path('page_up_to_now', page_ad_up_to_now),
     path('search', page_ad_search),
     path('request', request_page_ad),
     path('request/reject/<int:pk>', request_page_ad_reject),
