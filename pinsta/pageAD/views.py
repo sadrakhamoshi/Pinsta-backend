@@ -32,6 +32,10 @@ class PageADViewSet(ModelViewSet):
         datas = self.queryset.filter(owner=request.user)
         return Response({'pages': self.serializer_class(datas, many=True).data}, status=status.HTTP_200_OK)
 
+    def get_page_up_now(self, request, *args, **kwargs):
+        query = self.get_queryset().filter(deadline__gt=datetime.now())
+        return JsonResponse(PageADListSerializer(query, many=True).data, status=status.HTTP_200_OK)
+
     def search(self, request, *args, **kwargs):
         result_data = self.get_queryset()
         query_params = request.query_params
