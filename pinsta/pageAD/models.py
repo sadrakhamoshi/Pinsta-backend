@@ -2,10 +2,10 @@ from django.db import models
 
 
 class PageAD(models.Model):
-    owner = models.ForeignKey('account.User', on_delete=models.CASCADE)
+    owner = models.ForeignKey('account.User', on_delete=models.CASCADE, blank=True)
 
     # TODO
-    username_insta = models.CharField(max_length=250, blank=True)
+    username_insta = models.CharField(max_length=250, blank=True, unique=True)
     description = models.CharField(max_length=250, blank=True, null=True)
     # TODO validator
     deadline = models.DateTimeField(blank=True, null=True)
@@ -24,7 +24,7 @@ class PageAD(models.Model):
 
 class FavoritePage(models.Model):
     user = models.ForeignKey('account.User', on_delete=models.CASCADE)
-    page = models.ForeignKey('PageAD', on_delete=models.PROTECT)
+    page = models.ForeignKey('PageAD', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'favorite_pages'
@@ -41,7 +41,6 @@ class PageAdRequest(models.Model):
         (YEAR, 'YEAR'),
     ]
 
-    user = models.ForeignKey('account.User', on_delete=models.CASCADE, blank=True)
     page_ad = models.ForeignKey('pageAD', on_delete=models.CASCADE)
     membership = models.CharField(max_length=10, choices=memberships)
 
