@@ -31,17 +31,3 @@ class RequestPageAdSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageAdRequest
         fields = ['id', 'page_ad', 'membership']
-
-    def create(self, validated_data):
-        user = self.context['request'].user
-        return PageAdRequest.objects.create(
-            user=user,
-            membership=validated_data['membership'],
-            page_ad=validated_data['page_ad']
-        )
-
-
-class RequestPageAdListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PageAdRequest
-        exclude = ['user', ]

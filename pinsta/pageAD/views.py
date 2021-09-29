@@ -6,8 +6,8 @@ from rest_framework import status
 from .models import *
 from .serizlizers import *
 from django.http import JsonResponse
-
-from rest_framework.permissions import IsAdminUser
+from django.shortcuts import get_object_or_404
+from .permissions import PageAdRequestPermission
 from django.db.models import Q
 from django.contrib.auth.models import AnonymousUser
 
@@ -15,6 +15,8 @@ from django.contrib.auth.models import AnonymousUser
 class PageADViewSet(ModelViewSet):
     serializer_class = PageADListSerializer
     queryset = PageAD.objects.all()
+
+    # permission
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -51,23 +53,16 @@ class FavoritePagesViewSet(ModelViewSet):
 
 class PageAdRequestViewSet(ModelViewSet):
     queryset = PageAdRequest.objects.all()
-    serializer_class = RequestPageAdListSerializer
+    serializer_class = RequestPageAdSerializer
 
-    # TODO add permission class for admin and normal users
-    # permission_classes = [IsAdminUser, ]
-
-    def get_serializer_class(self):
-        if self.action == "create":
-            return RequestPageAdSerializer
-        return self.serializer_class
+    permission_classes = [PageAdRequestPermission, ]
 
     def accept(self, request, *args, **kwargs):
-        id = kwargs.get('pk')
-        request_page_ad = self.queryset.get(id=id)
+        request_page_ad = get_object_or_404(self.queryset, id=kwargs.get('pk'))
         pageAd = request_page_ad.page_ad
-        if request_page_ad.membership == 'w':
+        if request_page_ad.membership == PageAdRequest.WEEK:
             days = 7
-        elif request_page_ad.membership == 'm':
+        elif request_page_ad.membership == PageAdRequest.MONTH:
             days = 30
         else:
             days = 365
