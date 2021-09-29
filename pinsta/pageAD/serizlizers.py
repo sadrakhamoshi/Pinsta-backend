@@ -30,18 +30,18 @@ class FavoritePageAdSerializer(serializers.ModelSerializer):
 class RequestPageAdSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageAdRequest
-        fields = ['page_ad', 'membership']
+        fields = ['id', 'page_ad', 'membership']
 
     def create(self, validated_data):
         user = self.context['request'].user
         return PageAdRequest.objects.create(
             user=user,
-            page_ad=validated_data['page_ad'],
-            membership=validated_data['membership']
+            membership=validated_data['membership'],
+            page_ad=validated_data['page_ad']
         )
 
 
 class RequestPageAdListSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageAdRequest
-        fields = '__all__'
+        exclude = ['user', ]
