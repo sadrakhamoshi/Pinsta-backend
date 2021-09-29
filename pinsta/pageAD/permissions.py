@@ -12,3 +12,10 @@ class PageAdRequestPermission(BasePermission):
                 self.message = 'You do not have permission to perform this action or your object does not Exist'
                 return False
         return request.user.is_staff
+
+
+class PageAdPermissions(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method == 'PUT' or request.method == 'DELETE':
+            return request.user == obj.owner
+        return True

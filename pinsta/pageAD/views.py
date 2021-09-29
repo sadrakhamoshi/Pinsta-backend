@@ -7,7 +7,7 @@ from .models import *
 from .serizlizers import *
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from .permissions import PageAdRequestPermission
+from .permissions import *
 from django.db.models import Q
 from django.contrib.auth.models import AnonymousUser
 
@@ -16,7 +16,7 @@ class PageADViewSet(ModelViewSet):
     serializer_class = PageADListSerializer
     queryset = PageAD.objects.all()
 
-    # permission
+    permission_classes = [PageAdPermissions, ]
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -33,11 +33,11 @@ class PageADViewSet(ModelViewSet):
         return Response({'pages': self.serializer_class(datas, many=True).data}, status=status.HTTP_200_OK)
 
     def get_page_up_to_now(self, request, *args, **kwargs):
-        query = self.get_queryset().filter(deadline__gt=datetime.now())
+        query = self.queryset.exclude(owner=request.user).filter(deadline__gt=datetime.now())
         return JsonResponse(PageADListSerializer(query, many=True).data, safe=False, status=status.HTTP_200_OK)
 
     def search(self, request, *args, **kwargs):
-        result_data = self.get_queryset()
+        result_data = self.queryset.exclude(owner=request.user)
         query_params = request.query_params
         condition = Q()
         if query_params.get('username'):
