@@ -21,12 +21,9 @@ page_ad_search = PageADViewSet.as_view({
     'get': 'search',
 })
 
-request_page_ad_create = PageAdRequestViewSet.as_view({
-    'post': 'create'
-})
-
-request_page_ad_list = PageAdRequestViewSet.as_view({
-    'get': ' list'
+request_page_ad = PageAdRequestViewSet.as_view({
+    'post': 'create',
+    'get': 'list'
 })
 
 request_page_ad_reject = PageAdRequestViewSet.as_view({
