@@ -52,7 +52,11 @@ class PageADViewSet(ModelViewSet):
 
 class FavoritePagesViewSet(ModelViewSet):
     queryset = FavoritePage.objects.all()
-    pass
+    serializer_class = FavoritePageAdSerializer
+
+    def get_my_favorite(self, request, *args, **kwargs):
+        favorites = self.queryset.filter(user=request.user)
+        return JsonResponse(self.serializer_class(favorites, many=True).data, safe=False, status=status.HTTP_200_OK)
 
 
 class PageAdRequestViewSet(ModelViewSet):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PageAD, PageAdRequest
+from .models import PageAD, PageAdRequest, FavoritePage
 
 
 class PageADListSerializer(serializers.ModelSerializer):
@@ -24,7 +24,16 @@ class PageADCreateSerializer(serializers.ModelSerializer):
 
 
 class FavoritePageAdSerializer(serializers.ModelSerializer):
-    pass
+    class Meta:
+        model = FavoritePage
+        fields = ['id', 'page']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        return FavoritePage.objects.create(
+            user=user,
+            page=validated_data['page']
+        )
 
 
 class RequestPageAdSerializer(serializers.ModelSerializer):
