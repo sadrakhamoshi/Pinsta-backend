@@ -104,6 +104,8 @@ celerybeat.pid
 # Environments
 .env
 .env.dev
+.env.prod
+.env.prod.db
 .venv
 env/
 venv/
@@ -112,7 +114,7 @@ env.bak/
 venv.bak/
 
 docker-compose.prod.yml
-./.env.*
+
 # Spyder project settings
 .spyderproject
 .spyproject
