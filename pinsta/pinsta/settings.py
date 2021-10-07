@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
@@ -84,12 +83,12 @@ WSGI_APPLICATION = 'pinsta.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE', default='django.db.backends.postgresql'),
-        'NAME': config('DB_NAME', default='pinstaDB'),
-        'USER': config('DB_USER', default='pinsta'),
-        'PASSWORD': config('DB_PASSWORD', default='pinsta'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
+        'ENGINE': os.environ.get("DB_ENGINE", default="django.db.backends.postgresql"),
+        'NAME': os.environ.get('DB_NAME', default=BASE_DIR / "db.sqlite3"),
+        'USER': os.environ.get("DB_USER", default="pinsta"),
+        'PASSWORD': os.environ.get("DB_PASSWORD", default="password"),
+        'HOST': os.environ.get("DB_HOST", default="localhost"),
+        'PORT': os.environ.get("DB_PORT", default="5432"),
     }
 }
 
