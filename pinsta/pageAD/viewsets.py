@@ -48,3 +48,12 @@ page_ad_delete_favorite = FavoritePagesViewSet.as_view({
 page_ad_my_favorites = FavoritePagesViewSet.as_view({
     'get': 'get_my_favorite'
 })
+
+category_list_create = CategoryViewSet.as_view({
+    'post': 'create',
+    'get': 'list',
+})
+
+category_delete = CategoryViewSet.as_view({
+    'delete': 'destroy',
+})

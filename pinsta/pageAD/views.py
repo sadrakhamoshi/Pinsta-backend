@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .permissions import *
 from django.db.models import Q
+from rest_framework.permissions import IsAdminUser
 from django.contrib.auth.models import AnonymousUser
 
 
@@ -79,3 +80,9 @@ class PageAdRequestViewSet(ModelViewSet):
         pageAd.save()
         request_page_ad.delete()
         return JsonResponse({'msg': 'successfully accepted'}, safe=False, status=status.HTTP_200_OK)
+
+
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    permission_classes = [IsAdminUser,]
+    serializer_class = CategorySerializer

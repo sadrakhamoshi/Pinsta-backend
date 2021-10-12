@@ -14,4 +14,6 @@ urlpatterns = [
     path('favorite/add', page_ad_add_favorite),
     path('favorite/<int:pk>', page_ad_delete_favorite),
     path('favorite/my', page_ad_my_favorites),
+    path('category', category_list_create),
+    path('category/<int:pk>', category_delete)
 ]
