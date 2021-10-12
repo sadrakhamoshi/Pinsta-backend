@@ -22,7 +22,9 @@ class PageADViewSet(ModelViewSet):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
             return super(PageADViewSet, self).get_queryset()
-        return self.queryset.exclude(owner=self.request.user)
+        if self.action == 'list':
+            return self.queryset.exclude(owner=self.request.user)
+        return super(PageADViewSet, self).get_queryset()
 
     def get_serializer_class(self):
         if self.action == 'create':
