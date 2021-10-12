@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PageAD, PageAdRequest, FavoritePage
+from .models import PageAD, PageAdRequest, FavoritePage, Category
 
 
 class PageADListSerializer(serializers.ModelSerializer):
@@ -40,3 +40,9 @@ class RequestPageAdSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageAdRequest
         fields = ['id', 'page_ad', 'membership']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
