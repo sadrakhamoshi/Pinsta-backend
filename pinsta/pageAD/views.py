@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .permissions import *
 from django.db.models import Q
+from rest_framework.permissions import IsAdminUser
 from django.contrib.auth.models import AnonymousUser
 
 
@@ -21,7 +22,9 @@ class PageADViewSet(ModelViewSet):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
             return super(PageADViewSet, self).get_queryset()
-        return self.queryset.exclude(owner=self.request.user)
+        if self.action == 'list':
+            return self.queryset.exclude(owner=self.request.user)
+        return super(PageADViewSet, self).get_queryset()
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -79,3 +82,18 @@ class PageAdRequestViewSet(ModelViewSet):
         pageAd.save()
         request_page_ad.delete()
         return JsonResponse({'msg': 'successfully accepted'}, safe=False, status=status.HTTP_200_OK)
+
+
+class CategoryViewSet(ModelViewSet):
+    queryset = Category.objects.all()
+    permission_classes = [IsAdminUser, ]
+    serializer_class = CategorySerializer
+
+
+class SubCategoryViewSet(ModelViewSet):
+    permission_classes = [IsAdminUser, ]
+    serializer_class = SubCategorySerializer
+
+    def get_queryset(self):
+        query_params = self.request.query_params.get('category')
+        return SubCategory.objects.all().filter(category__name=query_params)
