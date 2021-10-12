@@ -57,3 +57,12 @@ category_list_create = CategoryViewSet.as_view({
 category_delete = CategoryViewSet.as_view({
     'delete': 'destroy',
 })
+
+sub_category_list_create = SubCategoryViewSet.as_view({
+    'post': 'create',
+    'get': 'list',
+})
+
+sub_category_delete = SubCategoryViewSet.as_view({
+    'delete': 'destroy',
+})

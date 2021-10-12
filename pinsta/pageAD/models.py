@@ -54,3 +54,10 @@ class Category(models.Model):
     class Meta:
         db_table = 'category'
 
+
+class SubCategory(models.Model):
+    name = models.CharField(max_length=256, blank=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True)
+
+    class Meta:
+        db_table = 'sub_category'

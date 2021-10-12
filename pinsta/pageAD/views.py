@@ -84,5 +84,14 @@ class PageAdRequestViewSet(ModelViewSet):
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
-    permission_classes = [IsAdminUser,]
+    permission_classes = [IsAdminUser, ]
     serializer_class = CategorySerializer
+
+
+class SubCategoryViewSet(ModelViewSet):
+    permission_classes = [IsAdminUser, ]
+    serializer_class = SubCategorySerializer
+
+    def get_queryset(self):
+        query_params = self.request.query_params.get('category')
+        return SubCategory.objects.all().filter(category__name=query_params)
