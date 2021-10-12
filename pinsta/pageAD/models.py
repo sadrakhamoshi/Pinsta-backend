@@ -46,3 +46,11 @@ class PageAdRequest(models.Model):
 
     class Meta:
         db_table = 'requests'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=256, blank=True)
+
+    class Meta:
+        db_table = 'category'
+
