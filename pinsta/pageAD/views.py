@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .permissions import *
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import AnonymousUser
 
 
@@ -80,12 +80,12 @@ class PageAdRequestViewSet(ModelViewSet):
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
     serializer_class = CategorySerializer
 
 
 class SubCategoryViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [AllowAny, ]
     serializer_class = SubCategorySerializer
 
     def get_queryset(self):
