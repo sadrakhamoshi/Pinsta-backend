@@ -3,13 +3,12 @@ from datetime import timedelta
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
-from .models import *
 from .serizlizers import *
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .permissions import *
 from django.db.models import Q
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import AnonymousUser
 
 
@@ -86,12 +85,12 @@ class PageAdRequestViewSet(ModelViewSet):
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
-    permission_classes = [IsAdminUser, ]
+    permission_classes = [IsAuthenticated,]
     serializer_class = CategorySerializer
 
 
 class SubCategoryViewSet(ModelViewSet):
-    permission_classes = [IsAdminUser, ]
+    permission_classes = [IsAuthenticated, ]
     serializer_class = SubCategorySerializer
 
     def get_queryset(self):
