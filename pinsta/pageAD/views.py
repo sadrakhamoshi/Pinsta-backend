@@ -61,7 +61,7 @@ class PageAdRequestViewSet(ModelViewSet):
     queryset = PageAdRequest.objects.all()
     serializer_class = RequestPageAdSerializer
 
-    permission_classes = [PageAdRequestPermission, ]
+    permission_classes = [AllowAny, ]
 
     def accept(self, request, *args, **kwargs):
         request_page_ad = get_object_or_404(self.queryset, id=kwargs.get('pk'))
