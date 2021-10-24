@@ -21,6 +21,14 @@ class FavoritePageAdSerializer(serializers.ModelSerializer):
         )
 
 
+class FavoritePageAdListSerializer(serializers.ModelSerializer):
+    page_ad = PageADListSerializer(source='page', read_only=True)
+
+    class Meta:
+        model = FavoritePage
+        fields = ['id', 'page_ad']
+
+
 class RequestPageAdSerializer(serializers.ModelSerializer):
     class Meta:
         model = PageAdRequest
