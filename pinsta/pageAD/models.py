@@ -28,6 +28,7 @@ class FavoritePage(models.Model):
 
     class Meta:
         db_table = 'favorite_pages'
+        unique_together = ('user', 'page')
 
 
 class PageAdRequest(models.Model):
