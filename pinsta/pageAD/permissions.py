@@ -11,7 +11,7 @@ class PageAdRequestPermission(BasePermission):
             except:
                 self.message = 'You do not have permission to perform this action or your object does not Exist'
                 return False
-        return request.user.is_staff
+        return True
 
 
 class PageAdPermissions(BasePermission):
